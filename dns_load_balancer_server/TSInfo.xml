@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<tsinfoliste xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="TSInfo.xsd">
+  <tsinfo server="1">
+    <ip>151.30.7.96</ip>
+    <typ>1</typ>
+    <auslastung>97</auslastung>
+    <name>Pascal</name>
+  </tsinfo>
+  <tsinfo server="2">
+    <ip>151.30.7.97</ip>
+    <typ>1</typ>
+    <auslastung>11</auslastung>
+    <name>Silvio</name>
+  </tsinfo>
+  <tsinfo server="3">
+    <ip>151.30.7.98</ip>
+    <typ>1</typ>
+    <auslastung>48</auslastung>
+    <name>Kalle</name>
+  </tsinfo>
+  <tsinfo server="4">
+    <ip>151.30.7.99</ip>
+    <typ>1</typ>
+    <auslastung>46</auslastung>
+    <name>Jessica</name>
+  </tsinfo>
+  <tsinfo server="5">
+    <ip>151.30.7.100</ip>
+    <typ>1</typ>
+    <auslastung>73</auslastung>
+    <name>Sascha</name>
+  </tsinfo>
+  <tsinfo server="6">
+    <ip>151.30.7.101</ip>
+    <typ>1</typ>
+    <auslastung>39</auslastung>
+    <name>Jasmin</name>
+  </tsinfo>
+  <tsinfo server="7">
+    <ip>151.30.7.102</ip>
+    <typ>1</typ>
+    <auslastung>48</auslastung>
+    <name>Dajaniera</name>
+  </tsinfo>
+  <tsinfo server="8">
+    <ip>151.30.7.103</ip>
+    <typ>1</typ>
+    <auslastung>91</auslastung>
+    <name>Christian</name>
+  </tsinfo>
+  <tsinfo server="9">
+    <ip>151.30.7.104</ip>
+    <typ>1</typ>
+    <auslastung>6</auslastung>
+    <name>Dornfeldt</name>
+  </tsinfo>
+  <tsinfo server="10">
+    <ip>151.30.7.105</ip>
+    <typ>1</typ>
+    <auslastung>91</auslastung>
+    <name>Nestea</name>
+  </tsinfo>
+</tsinfoliste>

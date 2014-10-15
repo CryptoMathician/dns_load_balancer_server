@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+<xs:element name="tsinfoliste">
+ <xs:complexType>
+ <xs:sequence>
+	<xs:element name="tsinfo" minOccurs="0" maxOccurs="unbounded">
+	<xs:complexType>
+	<xs:sequence>
+		<xs:element name="ip" type="xs:string" />
+		<xs:element name="typ" type="xs:int" />
+		<xs:element name="auslastung" type="xs:int" />
+		<xs:element name="name" type="xs:string" />
+	</xs:sequence>
+	<xs:attribute name="server" type="xs:int" use="required" />
+	</xs:complexType>
+	</xs:element>
+ </xs:sequence>
+ </xs:complexType>
+</xs:element>
+</xs:schema>
