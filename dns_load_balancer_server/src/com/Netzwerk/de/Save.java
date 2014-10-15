@@ -8,36 +8,40 @@ import java.util.Random;
 import org.apache.log4j.Logger;
 
 /**
- * Die Klasse Save beschreibt den Algorithmus zum Ausw‰hlen des Servers
- * @author Pascal Sch‰fer
- *
+ * Die Klasse Save beschreibt den Algorithmus zum Ausw√§hlen des Servers
+ * 
+ * @author Pascal Sch√§fer
  */
 
 public class Save implements IStrategy 
 {
 	/**
-	 * Enth‰lt den Typ welcher ausgew‰hlt wird
+	 * Enth√§lt den Typ welcher ausgew√§hlt wird
 	 */
 	private int typ;
+	
 	/**
-	 * Enth‰lt das Maximum Limit
+	 * Enth√§lt das Maximum Limit
 	 */
 	private int maxLimit;
+	
 	/**
 	 * Objekt eines Loggers zum Loggen von informationen
 	 */
 	private static Logger logger = Logger.getLogger( Save.class);
+	
 	/**
 	 * Ein Objekt der Klasse Random erstellen
 	 */
 	private Random random = new Random();
+	
 	/**
-	 * Enth‰lt die Strategie als String
+	 * Enth√§lt die Strategie als String
 	 */
 	private String info = "save";
 
 	/**
-	 * Konstruktor der Klasse Save setzt die Attribute auf die ‹bergebenen Werte
+	 * Konstruktor der Klasse Save setzt die Attribute auf die √ºbergebenen Werte
 	 * @param piTyp als int
 	 * @param piMaxLimit als int
 	 */
@@ -50,12 +54,11 @@ public class Save implements IStrategy
 	/**
 	 * erstellt eine neue Liste aus der alten Liste 
 	 * und sucht einen Server mit hoher Auslastung aus der unter dem piMaxLimit liegt 
-	 * und gibt eine IP-Adresse als String zur¸ck.
+	 * und gibt eine IP-Adresse als String zur√ºck.
 	 * 
-	 * @param table enth‰lt die Server geordnet nach deren Typ
-	 * @return gibt eine IP-Adresse als String Objekt zur¸ck
+	 * @param table enth√§lt die Server geordnet nach deren Typ
+	 * @return gibt eine IP-Adresse als String Objekt zur√ºck
 	 */
-	
 	@Override
 	public String chooseServer(Hashtable<String, ArrayList<TSInfo>> table) 
 	{
@@ -103,7 +106,7 @@ public class Save implements IStrategy
 		}
 		else
 		{
-			// wenn weniger als 3 server drin sind nimmt er einen zuf‰lligen von den dreien
+			// wenn weniger als 3 server drin sind nimmt er einen zuf√§lligen von den dreien
 			if(StromSparListeTSInfo.size() < 3)
 			{	
 				logger.warn("kein Loadbalancing stattgefunden!");
@@ -144,20 +147,31 @@ public class Save implements IStrategy
 			}
 		}
 		logger.debug("\n\n");
-		logger.debug("Objekt welches ausgew‰hlt wurde..." + sIP);
+		logger.debug("Objekt welches ausgewaehlt wurde..." + sIP);
 		logger.info("Ende der Mehtode Auswerten.save");
 		logger.info("");
 		return sIP;
 	}
 
+	/**
+	 * gibt die Strategie als String zur√ºck
+	 * 
+	 * @return info als String
+	 */
 	@Override
-	public String getInfo() {
+	public String getInfo() 
+	{
 		return this.info;
 	}
-
+	
+	/**
+	 * gibt den Typ der ausgew√ºhlt wird zur√ºck
+	 * 
+	 * @return typ als int
+	 */
 	@Override
-	public int getTyp() {
-		// TODO Auto-generated method stub
+	public int getTyp() 
+	{
 		return this.typ;
 	}
 

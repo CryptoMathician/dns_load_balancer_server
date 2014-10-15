@@ -8,33 +8,36 @@ import java.util.Random;
 import org.apache.log4j.Logger;
 
 /**
- * Die Klasse Balance beschreibt den Algorithmus zum Ausw‰hlen des Servers
+ * Die Klasse Balance beschreibt den Algorithmus zum Ausw√§hlen des Servers
  * 
- * @author Pascal Sch‰fer
+ * @author Pascal Sch√§fer
  *
  */
 
 public class Balance implements IStrategy 
 {
 	/**
-	 * Enth‰lt den Typ welcher ausgew‰hlt wird
+	 * Enth√§lt den Typ welcher ausgew√§hlt wird
 	 */
 	private int typ;
+	
 	/**
 	 * Objekt eines Loggers zum Loggen von informationen
 	 */
 	private static Logger logger = Logger.getLogger( Balance.class);
+	
 	/**
 	 * Ein Objekt der Klasse Random erstellen
 	 */
 	private Random random = new Random();
+	
 	/**
-	 * enth‰lt die Strategie als String
+	 * enth√§lt die Strategie als String
 	 */
 	private String info = "balance";
 	
 	/**
-	 * Konstruktor der Klasse Balance setzt die Attribute auf die ‹bergebenen Werte
+	 * Konstruktor der Klasse Balance setzt die Attribute auf die √úbergebenen Werte
 	 * @param piTyp als int
 	 */
 	public Balance(int piTyp)
@@ -43,10 +46,10 @@ public class Balance implements IStrategy
 	}
 	
 	/**
-	 * Sortiert die Liste die gebraucht wird und sucht einen Server mit niedriger Auslastung aus und gibt eine IP-Adresse als String zur¸ck
+	 * Sortiert die Liste die gebraucht wird und sucht einen Server mit niedriger Auslastung aus und gibt eine IP-Adresse als String zur√ºck
 	 * 
-	 * @param table enth‰lt die Server geordnet nach deren Typ
-	 * @return gibt eine IP-Adresse als String Objekt zur¸ck
+	 * @param table enth√ºlt die Server geordnet nach deren Typ
+	 * @return gibt eine IP-Adresse als String Objekt zur√ºck
 	 */
 	@Override
 	public String chooseServer(Hashtable<String,ArrayList<TSInfo>> table) 
@@ -142,7 +145,7 @@ public class Balance implements IStrategy
 			sIP = tsInfoObjekt.getIP();
 		}
 		logger.debug("\n\n");
-		logger.debug("Objekt welches ausgew‰hlt wurde..." + sIP);
+		logger.debug("Objekt welches ausgewaehlt wurde..." + sIP);
 
 		logger.info("Ende der Methode Auswerten.balance");
 		logger.info("");
@@ -150,23 +153,24 @@ public class Balance implements IStrategy
 	}
 
 	/**
-	 * 
-	 * gibt die Strategie als String zur¸ck
+	 * gibt die Strategie als String zur√ºck
 	 * 
 	 * @return info als String
 	 */
 	@Override
-	public String getInfo() {
+	public String getInfo() 
+	{
 		return this.info;
 	}
+	
 	/**
-	 * 
-	 * gibt den Typ der ausgew‰hlt wird zur¸ck
+	 * gibt den Typ der ausgew√ºhlt wird zur√ºck
 	 * 
 	 * @return typ als int
 	 */
 	@Override
-	public int getTyp() {
+	public int getTyp() 
+	{
 		return this.typ;
 	}
 }

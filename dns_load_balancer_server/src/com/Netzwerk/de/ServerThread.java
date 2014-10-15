@@ -21,9 +21,9 @@ import org.apache.log4j.Logger;
  * -gettyp all<br>
  * -gettyp typ<br>
  * -help<br>
- * -exit (zum Schließen der Verbindung)<br>
+ * -exit (zum Schliessen der Verbindung)<br>
  * 
- * @author Pascal Schäfer
+ * @author Pascal SchÃ¤fer
  *
  */
 
@@ -33,38 +33,41 @@ public class ServerThread extends Thread
 	 * Socket vom Client
 	 */
 	private SSLSocket client;
+	
 	/**
-	 * IP Adresse welche zurück geschickt wird wenn die Anfrage des Clients erfoglreich lief ansonsten kommt eine andere Antowrt zurück
+	 * IP Adresse welche zurÃ¼ck geschickt wird wenn die Anfrage des Clients erfoglreich lief ansonsten kommt eine andere Antowrt zurÃ¼ck
 	 */
 	private String ip;
-	/**
-	 * Gibt das Limit an welches gesetzt wurde zum Aussortieren der Server
-	 */
-//	private int limit;
+	
 	/**
 	 * Logger Objekt zum Loggen von Informationen
 	 */
 	private static Logger logger = Logger.getLogger(ServerThread.class);
+	
 	/**
-	 * speichert den übergebenen XML Pfad
+	 * speichert den Ã¼bergebenen XML Pfad
 	 */
 	private String xmlPath;
+	
 	/**
-	 * speichert den übergebeben XSD Pfad
+	 * speichert den Ã¼bergebeben XSD Pfad
 	 */
 	private String xsdPath;
 	
 	/**
-	 * speichert das übergebene Objekt MyServer
+	 * speichert das Ã¼bergebene Objekt MyServer
 	 */
 	private MyServer myServer;
 	
+	/**
+	 * speichert das Ã¼bergebene Objekt Model
+	 */
 	private Model model;
 	
 
 	
 	/**
-	 * Konstruktor der Klasse ServerThread setzt die Attribute auf die Übergebenen Werte
+	 * Konstruktor der Klasse ServerThread setzt die Attribute auf die Ã¼bergebenen Werte
 	 * 
 	 * @param psslClientSocket als Socket
 	 * @param psLimit als Int
@@ -84,7 +87,7 @@ public class ServerThread extends Thread
 	}
 	
 	/**
-	 * Versucht die Methode getIPbyName oder getIPbyNameTyp aus Auswerten aufzurufen um eine IP Adresse zu erhalten und schickt diese zum Client zurück
+	 * Versucht die Methode getIPbyName oder getIPbyNameTyp aus Auswerten aufzurufen um eine IP Adresse zu erhalten und schickt diese zum Client zurÃ¼ck
 	 * 
 	 * @param poaAsw als Auswerten
 	 * @param pstTokenizer als StringTokenizer
@@ -116,7 +119,7 @@ public class ServerThread extends Thread
 	}
 	
 	/**
-	 * Versucht die Methode save aus Auswerten aufzurufen um eine IP Adresse zu erhalten und schickt diese zum Client zurück
+	 * Versucht die Methode save aus Auswerten aufzurufen um eine IP Adresse zu erhalten und schickt diese zum Client zurÃ¼ck
 	 * 
 	 * @param poaAsw als Auswerten
 	 * @param pstTokenizer als StringTokenizer
@@ -149,7 +152,7 @@ public class ServerThread extends Thread
 	}
 	
 	/**
-	 * Versucht die Methode balance aus Auswerten aufzurufen um eine IP Adresse zu erhalten und schickt diese zum Client zurück
+	 * Versucht die Methode balance aus Auswerten aufzurufen um eine IP Adresse zu erhalten und schickt diese zum Client zurÃ¼ck
 	 * 
 	 * @param poaAsw als Auswerten
 	 * @param pstTokenizer als StringTokenizer
@@ -181,7 +184,7 @@ public class ServerThread extends Thread
 	}
 	
 	/**
-	 * Wählt je nach entegegen genommen Befehls eine Methode aus 
+	 * WÃ¤hlt je nach entegegen genommen Befehls eine Methode aus 
 	 *
 	 * @param poaAsw als Auswerten
 	 * @param pstTokenizer als StringTokenizer
@@ -226,7 +229,7 @@ public class ServerThread extends Thread
 	}
 	
 	/**
-	 * gibt den Client alle vorhandenen Server Typen zurück 
+	 * gibt den Client alle vorhandenen Server Typen zurÃ¼ck 
 	 * oder guckt ob es eines von denen gibt je nach Befehl und schickt eine Antwort zum Client
 	 * 
 	 * @param poaAsw als Auswerten
@@ -264,14 +267,14 @@ public class ServerThread extends Thread
 	}
 	
 	/**
-	 * Diese Methode wählt je nach eingekommer Nachricht eine Methode aus, um den entgegen genommen Befehl zu bearbeiten.
+	 * Diese Methode wÃ¤hlt je nach eingekommer Nachricht eine Methode aus, um den entgegen genommen Befehl zu bearbeiten.
 	 * 
 	 * @param poaAsw als Auswerten
 	 * @param pstTokenizer als StringTokenizer
 	 * @param pbWeiter als boolean
 	 * @param ppwOut als PrintWriter
 	 * @return weiter als boolean
-	 * @throws IOException durch schließen des Clients Sockets
+	 * @throws IOException durch schliessen des Clients Sockets
 	 */
 	private boolean chooseMethod(Auswerten poaAsw, StringTokenizer pstTokenizer, boolean pbWeiter, PrintWriter ppwOut) throws IOException
 	{
@@ -310,7 +313,7 @@ public class ServerThread extends Thread
 	}
 	
 	/**
-	 * Nachricht vom Client wird gelesen und weiterverarbeitet um den richtigen Befehl auszuführen
+	 * Nachricht vom Client wird gelesen und weiterverarbeitet um den richtigen Befehl auszufÃ¼hren
 	 */
 	public void run()
 	{
@@ -368,6 +371,5 @@ public class ServerThread extends Thread
 		
 		logger.info("Ende Methode run()");
 	}
-
-
+	
 }

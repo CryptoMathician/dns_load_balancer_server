@@ -26,14 +26,14 @@ import org.xml.sax.SAXException;
  * So wie das Sortieren und Informationen raus geben von Server Objekten die in einer XML Datei stehen
  *
  * @version 1.0
- * @author Pascal Schäfer
+ * @author Pascal SchÃ¤fer
  */
 
 public class Auswerten 
 {
 	
 	/**
-	 * Objekt einer Auswahlstrategie zum Auswählen eines Servers
+	 * Objekt einer Auswahlstrategie zum AuswÃ¤hlen eines Servers
 	 */
 	
 	private IStrategy strategy = null;
@@ -42,10 +42,12 @@ public class Auswerten
 	 * Eine Tabelle worin die Listen nach Typ gespeichert werden
 	 */
 	private Hashtable<String,ArrayList<TSInfo>> table = new Hashtable<String,ArrayList<TSInfo>>();
+	
 	/**
-	 * Document für die XML Datei
+	 * Document fÃ¼r die XML Datei
 	 */
 	private Document doc = null;
+	
 	/**
 	 * Objekt eines Loggers zum Loggen von informationen
 	 */
@@ -61,7 +63,7 @@ public class Auswerten
 
 	
 	/**
-	 * Liest ein XML Datei ein und überprüft es mit einer XML Schema datei auf richtigkeit<br>
+	 * Liest ein XML Datei ein und ÃœberprÃ¼ft es mit einer XML Schema datei auf richtigkeit<br>
 	 * und sortiert die TSInfo Objekte in eine Liste. Die Listen sind je nach Typ geordnet.<br>
 	 * Und loggt mit wenn es weniger als 3 Server von einem gewissen Typ gibt
 	 * 
@@ -73,7 +75,7 @@ public class Auswerten
 
 		try {
 			logger.debug("Versuche XSD zu Laden");
-			//Guck auf die factory für die W3C XML Schema Sprache
+			//Guck auf die factory fÃ¼r die W3C XML Schema Sprache
 			SchemaFactory schemafactory = SchemaFactory.newInstance("http://www.w3.org/2001/XMLSchema");
 
 			// 2. Kompiliere das Schema. 
@@ -87,14 +89,14 @@ public class Auswerten
 			// Mit DocumentBuilderFactory und DocumentBuilder ein XML Document einlesen
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 			factory.setNamespaceAware(true);
-			// für die Validierung von der XML durch die XSD
+			// fÃ¼r die Validierung von der XML durch die XSD
 			DocumentBuilder builder  = factory.newDocumentBuilder();
 			doc = builder.parse( new File( psXMLPath ) );
 
 			DOMSource source = new DOMSource(doc);
 			DOMResult result = new DOMResult();
 
-			// prüft die richtigkeit der Datei
+			// prÃ¼ft die richtigkeit der Datei
 			validator.validate(source,result);
 
 			logger.debug("");
@@ -197,11 +199,10 @@ public class Auswerten
 	}
 	
 	/**
-	 * Liest die verfügbaren Typen aus und gibt diese als String Array zurück
+	 * Liest die verfÃ¼gbaren Typen aus und gibt diese als String Array zurÃ¼ck
 	 * 
-	 * @return gibt einen String Array zurück mit den Typen von Servern die vorhanden sind
+	 * @return gibt einen String Array zurÃ¼ck mit den Typen von Servern die vorhanden sind
 	 */
-	
 	public String[] getKeys()
 	{
 		logger.info("Anfang der Methode Auswerten.getKeys");
@@ -228,34 +229,32 @@ public class Auswerten
 	}
 
 	/**
-	 * Checkt ob dieser Server Typ vorhanden ist und gibt ein boolean zurück
+	 * Checkt ob dieser Server Typ vorhanden ist und gibt ein boolean zurÃ¼ck
 	 * 
 	 * @param psKey
-	 * @return gibt ein True oder False zurück
+	 * @return gibt ein True oder False zurÃ¼ck
 	 */
-	
 	public boolean checkKey(String psKey)
 	{
 		logger.info("Anfang der Methode Auswerten.checkKey");
 		logger.info("Ende der Methode Auswerten.checkKey");
 		logger.info("");
-		logger.debug("übergebener Key Wert: " + psKey);
+		logger.debug("Uebergebener Key Wert: " + psKey);
 		logger.debug("return: " + table.containsKey(psKey));
 		return table.containsKey(psKey);
 	}
 
 	/**
-	 * Sucht nach einem Server in den Listen nach den Namen des Servers und gibt die IP-Adresse zurück wenn er gefunden wurde
-	 * und wenn er nicht gefunden wurde dann gibt er den String Nicht gefunden zurück
+	 * Sucht nach einem Server in den Listen nach den Namen des Servers und gibt die IP-Adresse zurÃ¼ck wenn er gefunden wurde
+	 * und wenn er nicht gefunden wurde dann gibt er den String Nicht gefunden zurÃ¼ck
 	 * 
 	 * @param psName gibt den Namen des Servers an
-	 * @return gibt einen String mit einer IP-Adresse zurück oder Nicht gefunden als String
+	 * @return gibt einen String mit einer IP-Adresse zurÃ¼ck oder Nicht gefunden als String
 	 */
-	
 	public String getIPbyName(String psName)
 	{
 		logger.info("Anfang der Methode Auswerten.getIPbyName");
-		logger.debug("übergebener Name: " + psName);
+		logger.debug("Uebergebener Name: " + psName);
 		String sErgebnis = "not found";
 		for(String key : table.keySet())
 		{
@@ -275,19 +274,18 @@ public class Auswerten
 	}
 
 	/**
-	 * Sucht einen Server nach dem Namen und dem Typ und gibt desen IP-Adresse zurück wenn er diesen Server gefunden hat, 
-	 * wenn nicht dann gibt er ein not found als String zurück
+	 * Sucht einen Server nach dem Namen und dem Typ und gibt desen IP-Adresse zurÃ¼ck wenn er diesen Server gefunden hat, 
+	 * wenn nicht dann gibt er ein not found als String zurÃ¼ck
 	 * 
 	 * @param psName gibt den Server Namen an 
 	 * @param psTyp gibt den Server Typ an
-	 * @return gibt einen String mit einer IP-Adresse zurück oder ein Nicht gefunden als String
+	 * @return gibt einen String mit einer IP-Adresse zurï¿½ck oder ein Nicht gefunden als String
 	 */
-	
 	public String getIPbyNameTyp(String psName, String psTyp)
 	{
 		logger.info("Anfang der Methode Auswerten.getIPbyNameTyp");
-		logger.debug("Übergebener Name: " + psName);
-		logger.debug("Übergebener Typ: " + psTyp);
+		logger.debug("Uebergebener Name: " + psName);
+		logger.debug("Uebergebener Typ: " + psTyp);
 		String sErgebnis = "not found";
 		try
 		{
@@ -314,6 +312,7 @@ public class Auswerten
 		logger.info("");
 		return sErgebnis;
 	}
+	
 	/**
 	 * Setzt die Aktuelle Auswahlstrategie fest
 	 * 
@@ -325,12 +324,11 @@ public class Auswerten
 	}
 	
 	/**
-	 * wählt einen Server aus nach der momentan festgelegten Auswahlstrategie 
+	 * wÃ¤hlt einen Server aus nach der momentan festgelegten Auswahlstrategie 
 	 * aus dem Strategy Objekt
 	 * 
-	 * @return gibt eine IP-Adresse als String Objekt zurück
+	 * @return gibt eine IP-Adresse als String Objekt zurÃ¤ck
 	 */
-	
 	public String chooseServer()
 	{
 		return this.strategy.chooseServer(table);

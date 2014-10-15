@@ -17,11 +17,11 @@ import java.util.StringTokenizer;
  * - getschemapath<br>
  * - exit (zum herunterfahren des Servers)<br>
  * 
- * @author Pascal Sch‰fer
+ * @author Pascal Sch√§fer
  */
 
-public class CommandThread extends Thread{
-
+public class CommandThread extends Thread
+{
 	/**
 	 * Model Objekt 
 	 */
@@ -35,7 +35,7 @@ public class CommandThread extends Thread{
 	/**
 	 * Konstruktor
 	 * 
-	 * @param poModel als Model Objekt enth‰lt Settingsdaten
+	 * @param poModel als Model Objekt enth√ºlt Settingsdaten
 	 */
 	public CommandThread(Model poModel, MyServer poMyServer)
 	{
@@ -82,7 +82,7 @@ public class CommandThread extends Thread{
 	}
 	
 	/**
-	 * setzt den Pfad der Schema datei f¸r die xml Datei
+	 * setzt den Pfad der Schema datei f√ºr die xml Datei
 	 * 
 	 * @param pstTokenizer als StringTokenizer
 	 */
@@ -94,7 +94,6 @@ public class CommandThread extends Thread{
 	}
 	
 	/**
-	 * 
 	 * setzt den Modus
 	 * 
 	 * @param pstTokenizer
@@ -129,7 +128,6 @@ public class CommandThread extends Thread{
 	}
 	
 	/**
-	 * 
 	 * setzt ob advancedClient aktiviert sein soll oder nicht
 	 * 
 	 * @param pstTokenizer
@@ -141,7 +139,7 @@ public class CommandThread extends Thread{
 	}
 	
 	/**
-	 * Methode zum Ausw‰hlen der Methoden
+	 * Methode zum Ausw√§hlen der Methoden
 	 * 
 	 * @param pstTokenizer als StringTokenizer
 	 * @throws IOException 

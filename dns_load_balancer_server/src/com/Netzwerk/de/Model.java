@@ -8,42 +8,43 @@ package com.Netzwerk.de;
  * - strategy<br>
  * - advancedClient<br>
  * 
- * @author Pascal Sch‰fer
+ * @author Pascal Sch√§fer
  */
 
-public class Model {
-	
-
-	
+public class Model 
+{
 	/**
-	 * enth‰lt das limit
+	 * enth√§lt das limit
 	 */
 	private int maxLimit = 85;
 
 	/**
-	 * enth‰lt den Pfad zur xml datei
+	 * enth√§lt den Pfad zur xml datei
 	 */
 	private String xmlPath = "TSInfo.xml";
+	
 	/**
-	 * enth‰lt den pfad zur Schema Datei
+	 * enth√§lt den pfad zur Schema Datei
 	 */
 	private String xsdPath = "TSInfo.xsd";
 	
 	/**
-	 * enth‰lt das Objekt der jetzigen ausgew‰hlten Strategie
+	 * enth√§lt das Objekt der jetzigen ausgew√§hlten Strategie
 	 */
 	private IStrategy strategy = new Balance(0);
+	
 	/**
-	 * enth‰lt die erlaubnis ob die clients im advanced modus anfragen d¸rfen
+	 * enth√§lt die erlaubnis ob die clients im advanced modus anfragen d√ºrfen
 	 */
 	private boolean advancedClient = false;
 
 
 	/**
-	 * gibt den Wert von limit zur¸ck
+	 * gibt den Wert von limit zur√ºck
 	 * @return limit als int
 	 */
-	public int getMaxLimit() {
+	public int getMaxLimit() 
+	{
 		return maxLimit;
 	}
 
@@ -52,16 +53,18 @@ public class Model {
 	 * 
 	 * @param psLimit als int
 	 */
-	public void setMaxLimit(int psLimit) {
+	public void setMaxLimit(int psLimit) 
+	{
 		this.maxLimit = psLimit;
 	}
 
 	/**
-	 * gibt den wert von xml pfad zur¸ck
+	 * gibt den wert von xml pfad zur√ºck
 	 * 
 	 * @return xmlpath als String
 	 */
-	public String getXMLPath() {
+	public String getXMLPath() 
+	{
 		return this.xmlPath;
 	}
 
@@ -70,16 +73,18 @@ public class Model {
 	 * 
 	 * @param psXMLPath als String
 	 */
-	public void setXMLPath(String psXMLPath) {
+	public void setXMLPath(String psXMLPath) 
+	{
 		this.xmlPath = psXMLPath;
 	}
 
 	/**
-	 * gibt den xsd Pfad zur¸ck
+	 * gibt den xsd Pfad zur√ºck
 	 * 
 	 * @return xsdpath als String
 	 */
-	public String getXSDPath() {
+	public String getXSDPath() 
+	{
 		return this.xsdPath;
 	}
 
@@ -88,17 +93,19 @@ public class Model {
 	 * 
 	 * @param psXSDPath als String
 	 */
-	public void setXSDPath(String psXSDPath) {
+	public void setXSDPath(String psXSDPath) 
+	{
 		this.xsdPath = psXSDPath;
 	}
 	
 	/**
 	 * 
-	 * gibt die Strategie zur¸ck
+	 * gibt die Strategie zur√ºck
 	 * 
 	 * @return strategy als IStrategy
 	 */
-	public IStrategy getStrategy() {
+	public IStrategy getStrategy() 
+	{
 		return strategy;
 	}
 
@@ -108,17 +115,19 @@ public class Model {
 	 * 
 	 * @param strategy als IStrategy
 	 */
-	public void setStrategy(IStrategy strategy) {
+	public void setStrategy(IStrategy strategy) 
+	{
 		this.strategy = strategy;
 	}
 
 	/**
 	 * 
-	 * gibt den boolean wert zur¸ck von advancedClient
+	 * gibt den boolean wert zur√ºck von advancedClient
 	 * 
 	 * @return advancedClient als boolean
 	 */
-	public boolean getAdvancedClient() {
+	public boolean getAdvancedClient() 
+	{
 		return advancedClient;
 	}
 
@@ -127,7 +136,8 @@ public class Model {
 	 * 
 	 * @param advancedClient als boolean 
 	 */
-	public void setAdvancedClient(boolean advancedClient) {
+	public void setAdvancedClient(boolean advancedClient) 
+	{
 		this.advancedClient = advancedClient;
 	}
 }

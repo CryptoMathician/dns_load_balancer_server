@@ -15,10 +15,10 @@ import org.apache.log4j.PatternLayout;
 import org.xml.sax.SAXException;
 /**
  * Diese Klasse beschreibt das auslesen der startparameter oder settingsdatei 
- * und startet für jeden Client der sich mit dem Server verbinden will
+ * und startet fÃ¼r jeden Client der sich mit dem Server verbinden will
  * einen eigenen Thread
  * 
- * @author Pascal Schäfer
+ * @author Pascal SchÃ¤fer
  */
 
 public class MyServer extends Thread
@@ -28,36 +28,44 @@ public class MyServer extends Thread
 	 * Logger Objekt um das was passiert mit zu loggen
 	 */
 	private static Logger logger = Logger.getRootLogger();
+	
 	/**
-	 * Zähler zum Zählen von den verbundenen Clients zum Server
+	 * ZÃ¤hler zum zÃ¤hlen von den verbundenen Clients zum Server
 	 */
 	private static int openSockets = 0;
+	
 	/**
 	 * Diese Boolean Variable zeigt an ob der Server noch weitere Verbindungen entgegennehmen kann
 	 */
 	private static boolean loop = true;
+	
 	/**
-	 * String Array welches die Startparameter enthält
+	 * String Array welches die Startparameter enthÃ¤lt
 	 */
 	private String[] args = null;
+	
 	/**
 	 * Objekt der den Client behandelt
 	 */
 	private ServerThread serverThread = null;
+	
 	/**
 	 * Objekt der Klasse Model
 	 */
 	private Model model;
+	
 	/**
 	 * Objekt der die Verbindung zum Client aufbaut
 	 */
 	private SSLSocket clientSocket = null;
+	
 	/**
 	 * Objekt welches die Verbindung vom Client entgegennimmt
 	 */
 	private SSLServerSocket sslServerSocket = null;
+	
 	/**
-	 * Diese Boolean Variable zeigt an ob der Client geschloßen werden muss
+	 * Diese Boolean Variable zeigt an ob der Client geschlossen werden muss
 	 */
 	private boolean clientMustClosed = false;
 
@@ -68,7 +76,6 @@ public class MyServer extends Thread
 	 * @param pasArgs als String[]
 	 * @param pmModel als Model
 	 */
-
 	public MyServer(String[] pasArgs, Model pmModel) 
 	{
 		this.args = pasArgs;
@@ -79,7 +86,7 @@ public class MyServer extends Thread
 	 * Startpunkt des Programms die Main methode wo die Startparameter oder die Settingsdatei ausgelesen wird
 	 * und anfragen von den Clients angenommen wird
 	 * 
-	 * @param args als String array für die startparameter übergabe
+	 * @param args als String array fÃ¼r die startparameter Ã¼bergabe
 	 */
 	public static void main(String[] args) 
 	{
@@ -89,11 +96,8 @@ public class MyServer extends Thread
 	}
 	
 	/**
-	 * 
 	 * startet den Server und aus diesem Prozess werden auch alle anderen Prozesse gestartet
-	 * 
 	 */
-	
 	public void run()
 	{
 		
@@ -108,7 +112,7 @@ public class MyServer extends Thread
 			
 			PatternLayout layout = new PatternLayout();
 			HTMLLayout layout2 = new HTMLLayout();
-			FileAppender fileAppender = new FileAppender(layout, "logs\\ServerLOG.log", false); // true = anhängen | false = datei überschreiben
+			FileAppender fileAppender = new FileAppender(layout, "logs\\ServerLOG.log", false); // true = anhÃ¤ngen | false = datei Ã¼berschreiben
 			FileAppender fileAppender2 = new FileAppender(layout2, "logs\\ServerHTML.log", false);
 			logger.addAppender(fileAppender2);
 			logger.addAppender(fileAppender);
@@ -173,7 +177,7 @@ public class MyServer extends Thread
 					{
 						clientSocket = (SSLSocket) sslServerSocket.accept();
 						clientMustClosed=true;
-						serverThread = new ServerThread(clientSocket,/* model.getMaxLimit(),*/ model.getXMLPath(), model.getXSDPath(),this, model);
+						serverThread = new ServerThread(clientSocket, model.getXMLPath(), model.getXSDPath(),this, model);
 						serverThread.start();
 						openSockets++;
 						System.out.println("aktuelle Verbindungen: " + openSockets);
@@ -211,9 +215,8 @@ public class MyServer extends Thread
 	}
 
 	/**
-	 * Zerstört das SSLServerSocket Objekt
+	 * ZerstÃ¶rt das SSLServerSocket Objekt
 	 */
-	
 	public void destroySSLServerSocketAccept()
 	{
 		try
@@ -232,7 +235,6 @@ public class MyServer extends Thread
 	 * 
 	 * @throws MyServerException
 	 */
-	
 	public static void decrementOpenSockets() throws MyServerException
 	{
 		openSockets--;
@@ -242,27 +244,29 @@ public class MyServer extends Thread
 	/**
 	 * setzt das Attribute loop auf false
 	 */
-	
 	public static void loopOff()
 	{
 		loop = false;
 	}
 	
 	/**
-	 * gibt den inhalt von der statischen variable openSockets zurück
+	 * gibt den inhalt von der statischen variable openSockets zurÃ¼ck
 	 * 
-	 * @return openSockets
+	 * @return openSockets als Integer
 	 */
-	
 	public static int getOpenSockets()
 	{
 		return openSockets;
 	}
 	
+	/**
+	 * gibt den status der schleife zurÃ¼ck
+	 * 
+	 * @return loop als boolean
+	 */
 	public static boolean getLoop()
 	{
 		return loop;
 	}
 
-	
 }

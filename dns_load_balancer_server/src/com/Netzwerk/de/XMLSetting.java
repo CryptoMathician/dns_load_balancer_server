@@ -19,33 +19,33 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 /**
- * Diese Klasse beschreibt das Auslesen der XML datei mit den Settings für den Server
+ * Diese Klasse beschreibt das Auslesen der XML datei mit den Settings fÃ¼r den Server
  * 
- * @author Pascal Schäfer
- *
+ * @author Pascal SchÃ¤fer
  */
 public class XMLSetting 
 {
 
 	/**
-	 * Document Objekt für das XML Document
+	 * Document Objekt fÃ¼r das XML Document
 	 */
 	private Document doc;
+	
 	/**
 	 * Limit zum speichern von dem ausgelesenen Limit
 	 */
 	private int limit;
+	
 	/**
 	 * XMLPfad zum speichern von dem ausgelesenen XMLPfad
 	 */
 	private String xmlPath;
+	
 	/**
 	 * XSDPfad zum speichern von dem ausgelesenen XSDPfad
 	 */
 	private String xsdPath;
 	
-	
-
 	/**
 	 * Logger Objekt zum Loggen von Ereignissen
 	 */
@@ -60,8 +60,8 @@ public class XMLSetting
 	}
 
 	/**
-	 * Auslesen der XML Datei mit überprüfung von einer XSD Datei und Speichern der Settings in den Klassenattributen
-	 * der Pfad von der XML und XSD Datei wird übergeben
+	 * Auslesen der XML Datei mit Ã¼berprÃ¼fung von einer XSD Datei und Speichern der Settings in den Klassenattributen
+	 * der Pfad von der XML und XSD Datei wird Ã¼bergeben
 	 * 
 	 * @param psPathXML als String
 	 * @param psPathXSD als String
@@ -98,7 +98,7 @@ public class XMLSetting
 		try
 		{
 			limit = Integer.parseInt(children.item(1).getTextContent());
-			logger.debug("Parsen von String nach Int für Limit war erfolgreich");
+			logger.debug("Parsen von String nach Int fuer Limit war erfolgreich");
 			xmlPath = children.item(3).getTextContent();
 			xsdPath = children.item(5).getTextContent();
 			logger.debug("auslesen aus der XML Settings Datei war erfolgreich");
@@ -111,29 +111,32 @@ public class XMLSetting
 	}
 
 	/**
-	 * gibt den Wert von Limit zurück
+	 * gibt den Wert von Limit zurÃ¼ck
 	 * 
 	 * @return Limit als Int
 	 */
-
 	public int getLimit() 
 	{
 		return limit;
 	}
+	
 	/**
-	 * gibt den Wert von XMLPfad zurück
+	 * gibt den Wert von XMLPfad zurÃ¼ck
 	 * 
 	 * @return XMLPfad als String
 	 */
-	public String getXMLPfad() {
+	public String getXMLPfad() 
+	{
 		return xmlPath;
 	}
+	
 	/**
-	 * gibt den Wert von XSDPfad zurück
+	 * gibt den Wert von XSDPfad zurÃ¼ck
 	 * 
 	 * @return XSDPfad als String
 	 */
-	public String getXSDPFad() {
+	public String getXSDPFad() 
+	{
 		return xsdPath;
 	}
 	
