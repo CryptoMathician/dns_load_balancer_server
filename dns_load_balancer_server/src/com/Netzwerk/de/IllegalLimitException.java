@@ -1,32 +1,30 @@
 package com.Netzwerk.de;
 
-
 /**
- * 
- * Diese Exception Klasse beschreibt eine Exception für ein falsches Limit
+ * This exception class describe the limit exception
  * 
  * @author Pascal Schäfer
- *
+ * @version 0.0.1
  */
 @SuppressWarnings("serial")
-public class IllegalLimitException extends Exception 
+public class IllegalLimitException extends Exception
 {
 	/**
-	 * Konstruktor der Exception und gibt den übergebenen Wert an die Klasse wetier von der sie Erbt
+	 * Overloaded public constructor of this class
 	 * 
-	 * @param psMessage als String
+	 * @param psMessage as String
 	 */
 	public IllegalLimitException(String psMessage)
 	{
 		super(psMessage);
 	}
-	
+
 	/**
-	 * Standard Konstruktor der Exception
+	 * Standard public constructor of this class
 	 */
 	public IllegalLimitException()
 	{
-		
+
 	}
 
 }

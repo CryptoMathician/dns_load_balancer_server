@@ -1,143 +1,296 @@
 package com.Netzwerk.de;
+
 /**
- * Die Klasse Model beschreibt eine Klasse zur Datenhaltung von den Attributen:<br>
- * - maxLimit<br>
- * - xmlPath<br>
- * - xsdPath<br>
- * - modusNow<br>
- * - strategy<br>
- * - advancedClient<br>
+ * This class describe a object that stores all the relevant values for the
+ * server<br>
+ * - maximum Limit<br>
+ * - XML file path<br>
+ * - XSD file path<br>
+ * - Database XML file path<br>
+ * - Database XSD file path<br>
+ * - Strategy algorithm<br>
+ * - The advanced client option<br>
+ * - The config path<br>
+ * - The server port<br>
+ * - The administration server port<br>
  * 
  * @author Pascal Schäfer
+ * @version 0.0.1
  */
 
-public class Model 
+public class Model extends Object
 {
 	/**
-	 * enthält das limit
+	 * The singleton object of this class
+	 */
+	private static Model model = new Model();
+
+	/**
+	 * Stores the limit
 	 */
 	private int maxLimit = 85;
 
 	/**
-	 * enthält den Pfad zur xml datei
+	 * Stores the XML path
 	 */
 	private String xmlPath = "TSInfo.xml";
-	
+
 	/**
-	 * enthält den pfad zur Schema Datei
+	 * Stores the XSD file path
 	 */
 	private String xsdPath = "TSInfo.xsd";
-	
+
 	/**
-	 * enthält das Objekt der jetzigen ausgewählten Strategie
+	 * Filename of the XML settings file for the database
+	 */
+	private String dbxmlPath = "db_conf.xml";
+
+	/**
+	 * Filename of the XSD schema file for the xml db settings
+	 */
+	private String dbxsdPath = "db_conf.xsd";
+
+	/**
+	 * Stores the actual strategy
 	 */
 	private IStrategy strategy = new Balance(0);
-	
+
 	/**
-	 * enthält die erlaubnis ob die clients im advanced modus anfragen dürfen
+	 * Stores the status of the advanced option
 	 */
 	private boolean advancedClient = false;
 
+	/**
+	 * The path for the configuration path
+	 */
+	private String configPath = "/etc/dns_load_balancer/";
 
 	/**
-	 * gibt den Wert von limit zurück
-	 * @return limit als int
+	 * The port of the server
 	 */
-	public int getMaxLimit() 
+	private int serverPort = 20500;
+
+	/**
+	 * The port of the administration server
+	 */
+	private int adminServerPort = 20510;
+
+	/**
+	 * Private constructor of this class
+	 */
+	private Model()
 	{
-		return maxLimit;
+
 	}
 
 	/**
-	 * setzt den limit wert
+	 * Return the object of this class
 	 * 
-	 * @param psLimit als int
+	 * @return model as Model
 	 */
-	public void setMaxLimit(int psLimit) 
+	public static Model getInstance()
+	{
+		return model;
+	}
+
+	/**
+	 * Return the limi
+	 * 
+	 * @return limit as int
+	 */
+	public int getMaxLimit()
+	{
+		return this.maxLimit;
+	}
+
+	/**
+	 * Set the limit
+	 * 
+	 * @param psLimit as int
+	 */
+	public void setMaxLimit(int psLimit)
 	{
 		this.maxLimit = psLimit;
 	}
 
 	/**
-	 * gibt den wert von xml pfad zurück
+	 * Return the path to the XML file
 	 * 
-	 * @return xmlpath als String
+	 * @return xmlpath as String
 	 */
-	public String getXMLPath() 
+	public String getXMLPath()
 	{
 		return this.xmlPath;
 	}
 
 	/**
-	 * setzt den wert von xmlpath
+	 * Set the XML file path
 	 * 
-	 * @param psXMLPath als String
+	 * @param psXMLPath as String
 	 */
-	public void setXMLPath(String psXMLPath) 
+	public void setXMLPath(String psXMLPath)
 	{
 		this.xmlPath = psXMLPath;
 	}
 
 	/**
-	 * gibt den xsd Pfad zurück
+	 * Return the XSD file path
 	 * 
-	 * @return xsdpath als String
+	 * @return xsdpath as String
 	 */
-	public String getXSDPath() 
+	public String getXSDPath()
 	{
 		return this.xsdPath;
 	}
 
 	/**
-	 * setzt den wert von xsdpath
+	 * Set the XSD file path
 	 * 
-	 * @param psXSDPath als String
+	 * @param psXSDPath as String
 	 */
-	public void setXSDPath(String psXSDPath) 
+	public void setXSDPath(String psXSDPath)
 	{
 		this.xsdPath = psXSDPath;
 	}
-	
+
 	/**
+	 * Return the actual strategy
 	 * 
-	 * gibt die Strategie zurück
-	 * 
-	 * @return strategy als IStrategy
+	 * @return strategy as IStrategy
 	 */
-	public IStrategy getStrategy() 
+	public IStrategy getStrategy()
 	{
-		return strategy;
+		return this.strategy;
 	}
 
 	/**
+	 * Set the actual strategy
 	 * 
-	 * setzt die Strategie
-	 * 
-	 * @param strategy als IStrategy
+	 * @param strategy as IStrategy
 	 */
-	public void setStrategy(IStrategy strategy) 
+	public void setStrategy(IStrategy strategy)
 	{
 		this.strategy = strategy;
 	}
 
 	/**
+	 * Return the status of the advanced client option
 	 * 
-	 * gibt den boolean wert zurück von advancedClient
-	 * 
-	 * @return advancedClient als boolean
+	 * @return advancedClient as boolean
 	 */
-	public boolean getAdvancedClient() 
+	public boolean getAdvancedClient()
 	{
-		return advancedClient;
+		return this.advancedClient;
 	}
 
 	/**
-	 * setzt den boolean wert von advanceClient
+	 * Set the value of the advanced client option
 	 * 
-	 * @param advancedClient als boolean 
+	 * @param advancedClient as boolean
 	 */
-	public void setAdvancedClient(boolean advancedClient) 
+	public void setAdvancedClient(boolean advancedClient)
 	{
 		this.advancedClient = advancedClient;
 	}
+
+	/**
+	 * Return the path to the configuration folder
+	 * 
+	 * @return the configPath as String
+	 */
+	public String getConfigPath()
+	{
+		return this.configPath;
+	}
+
+	/**
+	 * Set the path to the configuration folder
+	 * 
+	 * @param psConfigPath as String
+	 */
+	public void setConfigPath(String psConfigPath)
+	{
+		this.configPath = psConfigPath;
+	}
+
+	/**
+	 * Return the database configuration file path
+	 * 
+	 * @return the dbxmlPath as String
+	 */
+	public String getDBConfigXml()
+	{
+		return this.dbxmlPath;
+	}
+
+	/**
+	 * Set the database configuration file path
+	 * 
+	 * @param psDBXmlPath as String
+	 */
+	public void setDBConfigXml(String psDBXmlPath)
+	{
+		this.dbxmlPath = psDBXmlPath;
+	}
+
+	/**
+	 * Return the path of the database XSD file path
+	 * 
+	 * @return the dbxsdPath as String
+	 */
+	public String getDBConfigXsd()
+	{
+		return this.dbxsdPath;
+	}
+
+	/**
+	 * Set the path to the XSD file
+	 * 
+	 * @param psDBXsdPath as String
+	 */
+	public void setDBConfigXsd(String psDBXsdPath)
+	{
+		this.dbxsdPath = psDBXsdPath;
+	}
+
+	/**
+	 * Return the server port
+	 * 
+	 * @return the serverPort as int
+	 */
+	public int getServerPort()
+	{
+		return serverPort;
+	}
+
+	/**
+	 * Set the port of the server
+	 * 
+	 * @param serverPort as int
+	 */
+	public void setServerPort(int serverPort)
+	{
+		this.serverPort = serverPort;
+	}
+
+	/**
+	 * Return the administration server port
+	 * 
+	 * @return the adminServerPort as int
+	 */
+	public int getAdminServerPort()
+	{
+		return adminServerPort;
+	}
+
+	/**
+	 * Set the administration server port
+	 * 
+	 * @param adminServerPort as int
+	 */
+	public void setAdminServerPort(int adminServerPort)
+	{
+		this.adminServerPort = adminServerPort;
+	}
+
 }

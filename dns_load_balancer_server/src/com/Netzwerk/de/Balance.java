@@ -8,48 +8,48 @@ import java.util.Random;
 import org.apache.log4j.Logger;
 
 /**
- * Die Klasse Balance beschreibt den Algorithmus zum Auswählen des Servers
+ * This class describe a algorithm to chose a server
  * 
  * @author Pascal Schäfer
- *
+ * @version 0.0.1
  */
 
-public class Balance implements IStrategy 
+public class Balance extends Object implements IStrategy 
 {
 	/**
-	 * Enthält den Typ welcher ausgewählt wird
+	 * Store the type of the server
 	 */
-	private int typ;
+	private int type;
 	
 	/**
-	 * Objekt eines Loggers zum Loggen von informationen
+	 * The logger object of this class
 	 */
 	private static Logger logger = Logger.getLogger( Balance.class);
 	
 	/**
-	 * Ein Objekt der Klasse Random erstellen
+	 * Random object
 	 */
 	private Random random = new Random();
 	
 	/**
-	 * enthält die Strategie als String
+	 * This object stores the strategy algorithm 
 	 */
 	private String info = "balance";
 	
 	/**
-	 * Konstruktor der Klasse Balance setzt die Attribute auf die Übergebenen Werte
-	 * @param piTyp als int
+	 * public constructor of this class
+	 * @param piTyp as int
 	 */
 	public Balance(int piTyp)
 	{
-		this.typ = piTyp;
+		this.type = piTyp;
 	}
 	
 	/**
-	 * Sortiert die Liste die gebraucht wird und sucht einen Server mit niedriger Auslastung aus und gibt eine IP-Adresse als String zurück
+	 * Sort the list and chose a server with a low usage rate and return a IPv4 address
 	 * 
-	 * @param table enthült die Server geordnet nach deren Typ
-	 * @return gibt eine IP-Adresse als String Objekt zurück
+	 * @param table as Hashtable sort by the type
+	 * @return the sIP as String
 	 */
 	@Override
 	public String chooseServer(Hashtable<String,ArrayList<TSInfo>> table) 
@@ -62,9 +62,9 @@ public class Balance implements IStrategy
 		int s20prozent = 0;
 		String sIP = "";
 		TSInfo tsInfoObjekt;
-		String sTyp = String.valueOf(this.typ);
+		String sTyp = String.valueOf(this.type);
 
-		if(typ < 0)
+		if(type < 0)
 		{
 			logger.debug("Typ must be in the positive range");
 			return ("Typ must be in the positive range");
@@ -86,7 +86,7 @@ public class Balance implements IStrategy
 			int i = 1;
 			for(TSInfo akt : table.get(sTyp))
 			{
-				logger.debug("TSInfo Objekt " + i + ": IP:" + akt.getIP() + " ;Auslastung: " + akt.getAuslastung() + " ;Typ: " + akt.getTyp() + " ;Name: " + akt.getName());
+				logger.debug("TSInfo Objekt " + i + ": IP:" + akt.getIP() + " ;Auslastung: " + akt.getUsageRate() + " ;Typ: " + akt.getType() + " ;Name: " + akt.getName());
 				i++;
 				iAnzahl++;
 			}
@@ -119,7 +119,7 @@ public class Balance implements IStrategy
 			int i = 1;
 			for(TSInfo akt : table.get(sTyp))
 			{
-				logger.debug("TSInfo Objekt " + i + ": IP:" + akt.getIP() + " ;Auslastung: " + akt.getAuslastung() + " ;Typ: " + akt.getTyp() + " ;Name: " + akt.getName());
+				logger.debug("TSInfo Objekt " + i + ": IP:" + akt.getIP() + " ;Auslastung: " + akt.getUsageRate() + " ;Typ: " + akt.getType() + " ;Name: " + akt.getName());
 				i++;
 				iAnzahl++;
 			}
@@ -153,9 +153,9 @@ public class Balance implements IStrategy
 	}
 
 	/**
-	 * gibt die Strategie als String zurück
+	 * return the name of the strategy algorithm
 	 * 
-	 * @return info als String
+	 * @return info as String
 	 */
 	@Override
 	public String getInfo() 
@@ -164,13 +164,13 @@ public class Balance implements IStrategy
 	}
 	
 	/**
-	 * gibt den Typ der ausgewühlt wird zurück
+	 * return the type
 	 * 
-	 * @return typ als int
+	 * @return type as int
 	 */
 	@Override
 	public int getTyp() 
 	{
-		return this.typ;
+		return this.type;
 	}
 }

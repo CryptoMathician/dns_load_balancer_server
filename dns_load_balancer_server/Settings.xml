@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <setting xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="Settings.xsd">
 <limit>60</limit>
+<config_path>/etc/dns_load_balancer</config_path>
 <xml>TSInfo.xml</xml>
 <xsd>TSInfo.xsd</xsd>
+<dbxml>db_conf.xml</dbxml>
+<dbxsd>db_conf.xsd</dbxsd>
+<server_port>20500</server_port>
+<admin_server_port>20510</admin_server_port>
 </setting>

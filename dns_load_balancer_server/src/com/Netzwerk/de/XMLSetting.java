@@ -19,55 +19,82 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 /**
- * Diese Klasse beschreibt das Auslesen der XML datei mit den Settings für den Server
+ * This class describe a XMLInterpreter for the Server settings which read the
+ * settings from a XML file
  * 
  * @author Pascal Schäfer
+ * @version 0.0.1
  */
-public class XMLSetting 
+public class XMLSetting extends Object
 {
 
 	/**
-	 * Document Objekt für das XML Document
+	 * Document object for the XML Document
 	 */
 	private Document doc;
-	
-	/**
-	 * Limit zum speichern von dem ausgelesenen Limit
-	 */
-	private int limit;
-	
-	/**
-	 * XMLPfad zum speichern von dem ausgelesenen XMLPfad
-	 */
-	private String xmlPath;
-	
-	/**
-	 * XSDPfad zum speichern von dem ausgelesenen XSDPfad
-	 */
-	private String xsdPath;
-	
-	/**
-	 * Logger Objekt zum Loggen von Ereignissen
-	 */
-	private static Logger logger = Logger.getLogger( XMLSetting.class);
 
 	/**
-	 * Standard Konstruktor der Klasse XMLSetting
+	 * Stores the limit
+	 */
+	private int limit;
+
+	/**
+	 * Stores the path to the XML file
+	 */
+	private String xmlPath;
+
+	/**
+	 * Stores the path to the XSD Path
+	 */
+	private String xsdPath;
+
+	/**
+	 * Stores the config path folder
+	 */
+	private String configPath;
+
+	/**
+	 * Stores the path to the database configuration XML file
+	 */
+	private String dbxmlPath;
+
+	/**
+	 * Stores the path to the database configuration XSD file
+	 */
+	private String dbxsdPath;
+
+	/**
+	 * Stores the port of the server
+	 */
+	private int serverPort;
+
+	/**
+	 * Stores the administration server port
+	 */
+	private int adminServerPort;
+
+	/**
+	 * Logger object of this class
+	 */
+	private static Logger logger = Logger.getLogger(XMLSetting.class);
+
+	/**
+	 * Standard constructor of this class
 	 */
 	public XMLSetting()
 	{
-		logger.info("Konstruktor XMLSetting");
+		logger.info("constructor of the XMLSetting class");
 	}
 
 	/**
-	 * Auslesen der XML Datei mit überprüfung von einer XSD Datei und Speichern der Settings in den Klassenattributen
-	 * der Pfad von der XML und XSD Datei wird übergeben
+	 * Overloaded Constructor of this class to read the XML file and load the
+	 * settings into the program/memory
 	 * 
-	 * @param psPathXML als String
-	 * @param psPathXSD als String
-	 * @throws SAXException 
-	 * @throws IOException
-	 * @throws ParserConfigurationException
+	 * @param psPathXML as String
+	 * @param psPathXSD as String
+	 * @throws SAXException as Exception
+	 * @throws IOException as Exception
+	 * @throws ParserConfigurationException as Exception
 	 */
 	public void XMLSettings(String psPathXML, String psPathXSD) throws SAXException, IOException, ParserConfigurationException
 	{
@@ -78,66 +105,119 @@ public class XMLSetting
 		Schema schema = schemafactory.newSchema(schemaLocation);
 
 		Validator validator = schema.newValidator();
-		
 
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		factory.setNamespaceAware(true);
-		DocumentBuilder builder  = factory.newDocumentBuilder();
-		doc = builder.parse( new File( psPathXML ) );
+		DocumentBuilder builder = factory.newDocumentBuilder();
+		doc = builder.parse(new File(psPathXML));
 
 		DOMSource source = new DOMSource(doc);
 		DOMResult result = new DOMResult();
-		
-		validator.validate(source,result);
+
+		validator.validate(source, result);
 		logger.debug("");
-		logger.debug("Validation erfolgreich");
-		
+		logger.debug("Validation successful");
+
 		Node rootNode = doc.getDocumentElement();
 		NodeList children = rootNode.getChildNodes();
 
 		try
 		{
 			limit = Integer.parseInt(children.item(1).getTextContent());
-			logger.debug("Parsen von String nach Int fuer Limit war erfolgreich");
-			xmlPath = children.item(3).getTextContent();
-			xsdPath = children.item(5).getTextContent();
-			logger.debug("auslesen aus der XML Settings Datei war erfolgreich");
+			logger.debug("Parsen from String to int was successful");
+			configPath = children.item(3).getTextContent();
+			xmlPath = children.item(5).getTextContent();
+			xsdPath = children.item(7).getTextContent();
+			dbxmlPath = children.item(9).getTextContent();
+			dbxsdPath = children.item(11).getTextContent();
+			serverPort = Integer.parseInt(children.item(13).getTextContent());
+			adminServerPort = Integer.parseInt(children.item(15).getTextContent());
+			logger.debug("Reading from the XML file was successful");
 		}
-		catch(NumberFormatException e)
+		catch (NumberFormatException e)
 		{
-			logger.error("Fehler beim Umwandeln des Limits in einen String: Falsche Angabe es muss eine Ganzzahl sein!");
+			logger.error("Error by parsing the String in the int format");
 		}
-		logger.info("Ende der Methode XMLSetting.XMLSettings");
+		logger.info("End of the method XMLSetting.XMLSettings");
 	}
 
 	/**
-	 * gibt den Wert von Limit zurück
+	 * Returns the limit
 	 * 
-	 * @return Limit als Int
+	 * @return the limit as int
 	 */
-	public int getLimit() 
+	public int getLimit()
 	{
-		return limit;
+		return this.limit;
 	}
-	
+
 	/**
-	 * gibt den Wert von XMLPfad zurück
+	 * Returns the path to the XML file
 	 * 
-	 * @return XMLPfad als String
+	 * @return XMLPfad as String
 	 */
-	public String getXMLPfad() 
+	public String getXMLPfad()
 	{
-		return xmlPath;
+		return this.xmlPath;
 	}
-	
+
 	/**
-	 * gibt den Wert von XSDPfad zurück
+	 * Returns the XSD file path
 	 * 
-	 * @return XSDPfad als String
+	 * @return XSDPfad as String
 	 */
-	public String getXSDPFad() 
+	public String getXSDPFad()
 	{
-		return xsdPath;
+		return this.xsdPath;
 	}
-	
+
+	/**
+	 * Returns the configuration path folder
+	 * 
+	 * @return the configPath as String
+	 */
+	public String getConfigPath()
+	{
+		return this.configPath;
+	}
+
+	/**
+	 * Returns the database XML file path
+	 * 
+	 * @return the dbxmlPath as String
+	 */
+	public String getDbxmlPath()
+	{
+		return this.dbxmlPath;
+	}
+
+	/**
+	 * Returns the database XSD file path
+	 * 
+	 * @return the dbxsdPath as String
+	 */
+	public String getDbxsdPath()
+	{
+		return this.dbxsdPath;
+	}
+
+	/**
+	 * Returns the server port
+	 * 
+	 * @return the serverPort as int
+	 */
+	public int getServerPort()
+	{
+		return this.serverPort;
+	}
+
+	/**
+	 * Returns the administration server port
+	 * 
+	 * @return the adminServerPort as int
+	 */
+	public int getAdminServerPort()
+	{
+		return this.adminServerPort;
+	}
 }

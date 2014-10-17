@@ -8,75 +8,75 @@ import java.util.Random;
 import org.apache.log4j.Logger;
 
 /**
- * Die Klasse Save beschreibt den Algorithmus zum Auswählen des Servers
+ * This class describe the save strategy algorithm
  * 
  * @author Pascal Schäfer
+ * @version 0.0.1
  */
 
-public class Save implements IStrategy 
+public class Save extends Object implements IStrategy
 {
 	/**
-	 * Enthält den Typ welcher ausgewählt wird
+	 * Stores the type
 	 */
-	private int typ;
-	
+	private int type;
+
 	/**
-	 * Enthält das Maximum Limit
+	 * Stores the max limit
 	 */
 	private int maxLimit;
-	
+
 	/**
-	 * Objekt eines Loggers zum Loggen von informationen
+	 * The logger object of this class
 	 */
-	private static Logger logger = Logger.getLogger( Save.class);
-	
+	private static Logger logger = Logger.getLogger(Save.class);
+
 	/**
-	 * Ein Objekt der Klasse Random erstellen
+	 * Random object
 	 */
 	private Random random = new Random();
-	
+
 	/**
-	 * Enthält die Strategie als String
+	 * Stores the name of the strategy algorithm
 	 */
 	private String info = "save";
 
 	/**
-	 * Konstruktor der Klasse Save setzt die Attribute auf die übergebenen Werte
-	 * @param piTyp als int
-	 * @param piMaxLimit als int
+	 * Public constructor of this class
+	 * 
+	 * @param piTyp as int
+	 * @param piMaxLimit as int
 	 */
-	public Save(int piTyp,int piMaxLimit)
+	public Save(int piTyp, int piMaxLimit)
 	{
-		this.typ = piTyp;
+		this.type = piTyp;
 		this.maxLimit = piMaxLimit;
 	}
-	
+
 	/**
-	 * erstellt eine neue Liste aus der alten Liste 
-	 * und sucht einen Server mit hoher Auslastung aus der unter dem piMaxLimit liegt 
-	 * und gibt eine IP-Adresse als String zurück.
+	 * This method chose a server with the save algorithm and return a IPv4 address
 	 * 
-	 * @param table enthält die Server geordnet nach deren Typ
-	 * @return gibt eine IP-Adresse als String Objekt zurück
+	 * @param table as Hashtable
+	 * @return sIP as String
 	 */
 	@Override
-	public String chooseServer(Hashtable<String, ArrayList<TSInfo>> table) 
+	public String chooseServer(Hashtable<String, ArrayList<TSInfo>> table)
 	{
 		logger.info("Anfang der Methode Auswerten.save");
 		String sIP = "";
 		int iZufallszahl = 0;
 		TSInfo tsInfoObjekt;
-		String sTyp = String.valueOf(typ);
+		String sTyp = String.valueOf(type);
 		double groesse = 0.0;
 		double groesse100 = 0.0;
 		int s20prozent = 0;
 		ArrayList<TSInfo> StromSparListeTSInfo = new ArrayList<TSInfo>();
 
-		if(typ < 0)
+		if (type < 0)
 		{
 			return ("Typ must be in the positive range");
 		}
-		if(!(table.containsKey(sTyp)))
+		if (!(table.containsKey(sTyp)))
 		{
 			return ("The server of " + sTyp + " is unavailable");
 		}
@@ -85,37 +85,42 @@ public class Save implements IStrategy
 
 		Collections.sort(table.get(sTyp));
 
-		for(TSInfo akt : table.get(sTyp))
+		for (TSInfo akt : table.get(sTyp))
 		{
-			if(akt.getAuslastung() < maxLimit)
+			if (akt.getUsageRate() < maxLimit)
 			{
 				logger.debug("Ein Server wird in die neue Liste hinzugefuegt");
-				StromSparListeTSInfo.add(new TSInfo(akt.getAuslastung(),akt.getTyp(),akt.getIP(),akt.getName()));
+				StromSparListeTSInfo.add(new TSInfo(akt.getUsageRate(), akt
+						.getType(), akt.getIP(), akt.getName()));
 			}
 		}
 
-
-		// hier nimmt er die untersten 3 weil keine server in der neuen liste da sind
-		if(StromSparListeTSInfo.size() == 0)
+		// hier nimmt er die untersten 3 weil keine server in der neuen liste da
+		// sind
+		if (StromSparListeTSInfo.size() == 0)
 		{
 			logger.debug("kein Server in der neuen Liste");
 
 			iZufallszahl = random.nextInt(3);
-			tsInfoObjekt = table.get(sTyp).get((table.get(sTyp).size()-1)-iZufallszahl);// nochmal nachgucken
+			tsInfoObjekt = table.get(sTyp).get(
+					(table.get(sTyp).size() - 1) - iZufallszahl);// nochmal
+																	// nachgucken
 			sIP = tsInfoObjekt.getIP();
 		}
 		else
 		{
-			// wenn weniger als 3 server drin sind nimmt er einen zufälligen von den dreien
-			if(StromSparListeTSInfo.size() < 3)
-			{	
+			// wenn weniger als 3 server drin sind nimmt er einen zufälligen von
+			// den dreien
+			if (StromSparListeTSInfo.size() < 3)
+			{
 				logger.warn("kein Loadbalancing stattgefunden!");
 
 				Collections.sort(StromSparListeTSInfo);
 
 				iZufallszahl = random.nextInt(StromSparListeTSInfo.size());
 
-				logger.debug("zufallszahl bei weniger als 3 Objekten: " + iZufallszahl);
+				logger.debug("zufallszahl bei weniger als 3 Objekten: "
+						+ iZufallszahl);
 
 				tsInfoObjekt = StromSparListeTSInfo.get(iZufallszahl);
 				sIP = tsInfoObjekt.getIP();
@@ -127,22 +132,27 @@ public class Save implements IStrategy
 				logger.debug("\n");
 
 				int i = 1;
-				for(TSInfo akt : StromSparListeTSInfo)
+				for (TSInfo akt : StromSparListeTSInfo)
 				{
-					logger.debug("TSInfo Objekt " + i + ": IP:" + akt.getIP() + " ;Auslastung: " + akt.getAuslastung() + " ;Typ: " + akt.getTyp() + " ;Name: " + akt.getName());
+					logger.debug("TSInfo Objekt " + i + ": IP:" + akt.getIP()
+							+ " ;Auslastung: " + akt.getUsageRate()
+							+ " ;Typ: " + akt.getType() + " ;Name: "
+							+ akt.getName());
 					i++;
 				}
 
-				groesse = StromSparListeTSInfo.size()*1.0;
+				groesse = StromSparListeTSInfo.size() * 1.0;
 				groesse100 = groesse * 0.20;
 				s20prozent = (int) Math.round(groesse100);
 
-				if(s20prozent < 3) s20prozent = 3;
+				if (s20prozent < 3) s20prozent = 3;
 
 				iZufallszahl = random.nextInt(s20prozent);
-				logger.debug("zufallszahl bei mehr als 3 Objekten: " + iZufallszahl);
+				logger.debug("zufallszahl bei mehr als 3 Objekten: "
+						+ iZufallszahl);
 
-				tsInfoObjekt = StromSparListeTSInfo.get((StromSparListeTSInfo.size()-1)-iZufallszahl);
+				tsInfoObjekt = StromSparListeTSInfo.get((StromSparListeTSInfo
+						.size() - 1) - iZufallszahl);
 				sIP = tsInfoObjekt.getIP();
 			}
 		}
@@ -154,25 +164,25 @@ public class Save implements IStrategy
 	}
 
 	/**
-	 * gibt die Strategie als String zurück
+	 * Return the name of the strategy algorithm
 	 * 
-	 * @return info als String
+	 * @return info as String
 	 */
 	@Override
-	public String getInfo() 
+	public String getInfo()
 	{
 		return this.info;
 	}
-	
+
 	/**
-	 * gibt den Typ der ausgewühlt wird zurück
+	 * Return the type of the server
 	 * 
-	 * @return typ als int
+	 * @return typ as int
 	 */
 	@Override
-	public int getTyp() 
+	public int getTyp()
 	{
-		return this.typ;
+		return this.type;
 	}
 
 }

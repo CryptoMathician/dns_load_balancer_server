@@ -4,35 +4,34 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 
 /**
- * Die Schnittstelle Strategy beschreibt eine Methode 
- * die von Klassen benutzt werden kann um Neue Auswahlstrategien zu Implementieren
+ * This interface describe the abstract methods which is to implement from the
+ * strategy algorithm classes
  * 
  * @author Pascal Schäfer
- *
+ * @version 0.0.1
  */
 
-public interface IStrategy 
+public interface IStrategy
 {
 	/**
-	 * Diese Methode ist eine Abstrakte methode die von den Klassen Implementiert und
-	 * überschrieben werden muss
+	 * This methode describe a algorithm to choose a server
 	 * 
-	 * @param table als Hashtable
+	 * @param table as Hashtable
 	 * @return String
 	 */
-	public String chooseServer(Hashtable<String,ArrayList<TSInfo>> table);
-	
+	public String chooseServer(Hashtable<String, ArrayList<TSInfo>> table);
+
 	/**
-	 * Gibt den Namen des Algorithmus zurück
+	 * Return the name of the algorithm
 	 * 
-	 * @return den Namen des Algorithmus zurück
+	 * @return the name of the algorithm
 	 */
 	public String getInfo();
-	
+
 	/**
-	 * Gibt den Typ des Servers an nach dem Sortiert wird
+	 * Return the type of the servers
 	 * 
-	 * @return den Typ des Servers als Integer
+	 * @return the type as int
 	 */
 	public int getTyp();
 }

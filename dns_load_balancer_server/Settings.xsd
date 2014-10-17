@@ -5,8 +5,13 @@
  <xs:complexType>
   <xs:sequence>
 	<xs:element name="limit" type="xs:int" />
+	<xs:element name="config_path" type="xs:string"/>
 	<xs:element name="xml" type="xs:string" />
 	<xs:element name="xsd" type="xs:string" />
+	<xs:element name="dbxml" type="xs:string"/>
+	<xs:element name="dbxsd" type="xs:string"/>
+	<xs:element name="server_port" type="xs:int"/>
+	<xs:element name="admin_server_port" type="xs:int"/>
    </xs:sequence>
   </xs:complexType>
  </xs:element>

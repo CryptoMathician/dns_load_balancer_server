@@ -3,115 +3,115 @@ package com.Netzwerk.de;
 import org.apache.log4j.Logger;
 
 /**
- * Beschreibung eines Terminalservers mit der Auslastung, dem Namen, dem Typ und
- * der IP
+ * This class describe a terminal server with the usage rate, the name and his
+ * type, with his IPv4 address
  *
- * @version 1.0 vom 17.01.2013
  * @author Pascal Schäfer
+ * @version 0.0.1
  */
 
-public class TSInfo implements Comparable<TSInfo> 
+public class TSInfo extends Object implements Comparable<TSInfo>
 {
-	// Anfang Attribute
-	/**
-	 * Beschreibt die Auslastung des Servers als Int
+	/*
+	 *  Begin of attributes
 	 */
-	private int auslastung;
 	
 	/**
-	 * Beschreibt den Typ des Server als Int
+	 * Stores the usage rate of the server
 	 */
-	private int typ;
-	
+	private int usageRate;
+
 	/**
-	 * Beschreibt die IP-Adresse des Servers als String
+	 * Stores the type of the server
+	 */
+	private int type;
+
+	/**
+	 * Stores the IPv4 address of the server
 	 */
 	private String ip;
-	
+
 	/**
-	 * Beschreibt den Namen des Servers als String
+	 * Stores the server name of the server
 	 */
 	private String name;
-	
+
 	/**
-	 * Logger Objekt zum mit loggen
+	 * Logger object of this class
 	 */
 	private static Logger logger = Logger.getLogger(TSInfo.class);
 
-	// Ende Attribute
+	/*
+	 *  End of attributes
+	 */
 
 	/**
-	 * Dem Konstruktor werden die Paramter übergeben um diese in die
-	 * Klassenattribute hinein zu schreiben
+	 * Constructof of this class
 	 * 
-	 * @param piAuslastung
-	 *            gibt die Auslastung als Int an
-	 * @param piTyp
-	 *            gibt den Typ als Int an
-	 * @param psIP
-	 *            gibt die IP als String an
-	 * @param psName
-	 *            gibt den Namen als String an
+	 * @param piUsageRate as int
+	 * @param piType as int
+	 * @param psIP as String
+	 * @param psName as String
 	 */
-	public TSInfo(int piAuslastung, int piTyp, String psIP, String psName) 
+	public TSInfo(int piUsageRate, int piType, String psIP, String psName)
 	{
-		logger.info("Anfang Konstruktor TSInfo");
-		this.auslastung = piAuslastung;
-		this.typ = piTyp;
+		logger.info("Start constructor");
+		this.usageRate = piUsageRate;
+		this.type = piType;
 		this.ip = psIP;
 		this.name = psName;
-		logger.info("Ende des Konstruktors TSInfo");
+		logger.info("End constructor");
 	}
 
 	/**
-	 * gibt die Auslastung als Int zurück
+	 * Returns the usage rate of the server
 	 * 
-	 * @return Auslastung als Int
+	 * @return the usageRate as int
 	 */
 	// Anfang Methoden
-	public int getAuslastung() 
+	public int getUsageRate()
 	{
-		return auslastung;
+		return this.usageRate;
 	}
 
 	/**
-	 * gibt den Typ als Int zurück
+	 * Returns the type of the server
 	 * 
-	 * @return Typ als int
+	 * @return the type as int
 	 */
-	public int getTyp() 
+	public int getType()
 	{
-		return typ;
+		return this.type;
 	}
 
 	/**
-	 * gibt die IP als String zurück
+	 * Returns the IPv4 address
 	 * 
-	 * @return IP als String
+	 * @return the ip as String
 	 */
-	public String getIP() 
+	public String getIP()
 	{
-		return ip;
+		return this.ip;
 	}
 
 	/**
-	 * gibt den Namen als String zurück
+	 * Returns the name of the server
 	 * 
-	 * @return Name als String
+	 * @return Name as String
 	 */
-	public String getName() 
+	public String getName()
 	{
 		return name;
 	}
 
 	/**
-	 * Überschriebene ComapreTo Methode zum Sortieren der TSInfo Objekte
+	 * Overloaded compareTo method to sort the TSInfo objects
 	 */
 	@Override
-	public int compareTo(TSInfo poTSInfo) 
+	public int compareTo(TSInfo poTSInfo)
 	{
-		return this.auslastung - poTSInfo.getAuslastung();
+		return this.usageRate - poTSInfo.getUsageRate();
 	}
 
-	// Ende Methoden
+	// End of methods
 } // end of TSInfo

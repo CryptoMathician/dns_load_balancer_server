@@ -11,105 +11,108 @@ import javax.net.ssl.SSLSocket;
 import org.apache.log4j.Logger;
 
 /**
- * Die Klasse ServerThread beschreibt das Verhalten des Servers auf eine Aufgebaute Verbindung mit einem Client,
- * dieser Client kann befehle zum Server Schicken wie:<br>
- * 
- * -getip by name typ<br>
+ * This class describe how the client would be handle and which commands can use
+ * the client.<br>
+ * This commands can the client use<br>
+ * <br>
+ * -getip by name type<br>
  * -getip by name<br>
- * -getip save typ<br>
- * -getip balance typ<br>
+ * -getip save type<br>
+ * -getip balance type<br>
  * -gettyp all<br>
- * -gettyp typ<br>
+ * -gettyp type<br>
  * -help<br>
- * -exit (zum Schliessen der Verbindung)<br>
+ * -exit (to close the connection)<br>
  * 
  * @author Pascal Schäfer
- *
+ * @version 0.0.1
  */
 
-public class ServerThread extends Thread
+public class ServerThread extends Object implements Runnable
 {
 	/**
-	 * Socket vom Client
+	 * Stores the connection to the client
 	 */
 	private SSLSocket client;
-	
+
 	/**
-	 * IP Adresse welche zurück geschickt wird wenn die Anfrage des Clients erfoglreich lief ansonsten kommt eine andere Antowrt zurück
+	 * Stores the IPv4 address
 	 */
 	private String ip;
-	
+
 	/**
-	 * Logger Objekt zum Loggen von Informationen
+	 * The logger object of this class
 	 */
 	private static Logger logger = Logger.getLogger(ServerThread.class);
-	
+
 	/**
-	 * speichert den übergebenen XML Pfad
+	 * Stores the XML file path
 	 */
 	private String xmlPath;
-	
+
 	/**
-	 * speichert den übergebeben XSD Pfad
+	 * Stores the XSD file path
 	 */
 	private String xsdPath;
-	
+
 	/**
-	 * speichert das übergebene Objekt MyServer
+	 * Stores the MyServer object
 	 */
 	private MyServer myServer;
-	
+
 	/**
-	 * speichert das übergebene Objekt Model
+	 * Stores the Model object
 	 */
 	private Model model;
-	
 
-	
 	/**
-	 * Konstruktor der Klasse ServerThread setzt die Attribute auf die übergebenen Werte
+	 * Overloaded constructor of this class
 	 * 
-	 * @param psslClientSocket als Socket
-	 * @param psLimit als Int
-	 * @param psXMLPath 
+	 * @param psslClientSocket as SSLSocket
+	 * @param psXMLPath as String
+	 * @param psXSDPath as String
+	 * @param poMyServer as MyServer
+	 * @param poModel as Model
 	 */
-	public ServerThread(SSLSocket psslClientSocket, String psXMLPath, String psXSDPath, MyServer poMyServer, Model poModel)
+	public ServerThread(SSLSocket psslClientSocket, String psXMLPath,
+			String psXSDPath, MyServer poMyServer, Model poModel)
 	{
-		
-		logger.info("Anfang von ServerThread2 Konstruktor");
+
+		logger.info("Start of the constructor");
 		this.client = psslClientSocket;
 		this.xmlPath = psXMLPath;
 		this.xsdPath = psXSDPath;
 		this.myServer = poMyServer;
 		this.model = poModel;
 
-		logger.info("Ende von ServerThread2 Konstruktor");
+		logger.info("end of the constructor");
 	}
-	
+
 	/**
-	 * Versucht die Methode getIPbyName oder getIPbyNameTyp aus Auswerten aufzurufen um eine IP Adresse zu erhalten und schickt diese zum Client zurück
+	 * This method describe the use of the getip by name or getip by name type
 	 * 
-	 * @param poaAsw als Auswerten
-	 * @param pstTokenizer als StringTokenizer
-	 * @param ppwOut als PrintWriter
+	 * @param poaAsw as XMLInterpreter
+	 * @param pstTokenizer as StringTokenizer
+	 * @param ppwOut as PrintWriter
 	 */
-	private void by(Auswerten poaAsw, StringTokenizer pstTokenizer, PrintWriter ppwOut)
+	private void by(XMLInterpreter poaAsw, StringTokenizer pstTokenizer,
+			PrintWriter ppwOut)
 	{
 		logger.info("Anfang Methode by");
-		if(pstTokenizer.hasMoreTokens())
+		if (pstTokenizer.hasMoreTokens())
 		{
-				String serverName = pstTokenizer.nextToken();
-				if(pstTokenizer.hasMoreTokens())
-				{
-					String serverTyp = pstTokenizer.nextToken();			
-					String sIP = poaAsw.getIPbyNameTyp(serverName,serverTyp);
-					ppwOut.println(sIP);
-				}
-				else
-				{
-					String sIP = poaAsw.getIPbyName(serverName);
-					ppwOut.println(sIP);
-				}
+			String serverName = pstTokenizer.nextToken();
+			if (pstTokenizer.hasMoreTokens())
+			{
+				String serverTyp = pstTokenizer.nextToken();
+				String sIP = poaAsw.getIPbyNameTyp(serverName, serverTyp);
+				ppwOut.println(sIP);
+			}
+			else
+			{
+				String sIP = poaAsw.getIPbyName(serverName);
+				ppwOut.println(sIP);
+			}
 		}
 		else
 		{
@@ -117,30 +120,31 @@ public class ServerThread extends Thread
 		}
 		logger.info("Ende Methode by");
 	}
-	
+
 	/**
-	 * Versucht die Methode save aus Auswerten aufzurufen um eine IP Adresse zu erhalten und schickt diese zum Client zurück
+	 * This describe a method which use the save algorithm
 	 * 
-	 * @param poaAsw als Auswerten
-	 * @param pstTokenizer als StringTokenizer
-	 * @param ppwOut als PrintWriter
+	 * @param poaAsw as XMLInterpreter
+	 * @param pstTokenizer as StringTokenizer
+	 * @param ppwOut as PrintWriter
 	 */
-	private void save(Auswerten poaAsw, StringTokenizer pstTokenizer, PrintWriter ppwOut)
+	private void save(XMLInterpreter poaAsw, StringTokenizer pstTokenizer,
+			PrintWriter ppwOut)
 	{
-		logger.info("Anfang Methode save");
-		if(pstTokenizer.hasMoreTokens())
+		logger.info("Start method save");
+		if (pstTokenizer.hasMoreTokens())
 		{
-				String typ = pstTokenizer.nextToken();
-			try 
+			String typ = pstTokenizer.nextToken();
+			try
 			{
 				int iTyp = Integer.parseInt(typ);
-				poaAsw.setStrategy(new Save(iTyp,model.getMaxLimit()));
+				poaAsw.setStrategy(new Save(iTyp, model.getMaxLimit()));
 				ip = poaAsw.chooseServer();
 				ppwOut.println(ip);
-			} 
-			catch ( NumberFormatException e)
+			}
+			catch (NumberFormatException e)
 			{
-				logger.debug("Parse vom String zum int war nicht erfolgreich");
+				logger.debug("Parse from String to int was not successful");
 				ppwOut.println("the typ must be a number");
 			}
 		}
@@ -148,30 +152,31 @@ public class ServerThread extends Thread
 		{
 			ppwOut.println("getip save <0|1|2|3|..>");
 		}
-		logger.info("Ende Methode save");
+		logger.info("End method save");
 	}
-	
+
 	/**
-	 * Versucht die Methode balance aus Auswerten aufzurufen um eine IP Adresse zu erhalten und schickt diese zum Client zurück
+	 * This describe a method which use the balance algorithm
 	 * 
-	 * @param poaAsw als Auswerten
-	 * @param pstTokenizer als StringTokenizer
-	 * @param ppwOut als PrintWriter
+	 * @param poaAsw as XMLInterpreter
+	 * @param pstTokenizer as StringTokenizer
+	 * @param ppwOut as PrintWriter
 	 */
-	private void balance(Auswerten poaAsw, StringTokenizer pstTokenizer, PrintWriter ppwOut)
+	private void balance(XMLInterpreter poaAsw, StringTokenizer pstTokenizer,
+			PrintWriter ppwOut)
 	{
-		logger.info("Anfang Methode balance");
-		if(pstTokenizer.hasMoreTokens())
+		logger.info("Start method balance");
+		if (pstTokenizer.hasMoreTokens())
 		{
-			try 
+			try
 			{
 				String typ = pstTokenizer.nextToken();
 				int iTyp = Integer.parseInt(typ);
 				poaAsw.setStrategy(new Balance(iTyp));
 				ip = poaAsw.chooseServer();
 				ppwOut.println(ip);
-			} 
-			catch ( NumberFormatException e)
+			}
+			catch (NumberFormatException e)
 			{
 				ppwOut.println("the typ must be a number");
 			}
@@ -180,74 +185,77 @@ public class ServerThread extends Thread
 		{
 			ppwOut.println("getip balance  <0|1|2|3|..>");
 		}
-		logger.info("Ende Methode balance");
+		logger.info("End method balance");
 	}
-	
+
 	/**
-	 * Wählt je nach entegegen genommen Befehls eine Methode aus 
+	 * This method choose a method from the getip command
 	 *
-	 * @param poaAsw als Auswerten
-	 * @param pstTokenizer als StringTokenizer
-	 * @param ppwOut als PrintWriter
+	 * @param poaAsw as XMLInterpreter
+	 * @param pstTokenizer as StringTokenizer
+	 * @param ppwOut as PrintWriter
 	 */
-	private void ip(Auswerten poaAsw, StringTokenizer pstTokenizer, PrintWriter ppwOut)
+	private void ip(XMLInterpreter poaAsw, StringTokenizer pstTokenizer,
+			PrintWriter ppwOut)
 	{
-		logger.info("Anfang Methode ip");
-		if(pstTokenizer.hasMoreTokens())
+		logger.info("Start method ip");
+		if (pstTokenizer.hasMoreTokens())
 		{
 			String next = pstTokenizer.nextToken();
 			next = next.toLowerCase();
-			
-				if(next.equals("by"))
-				{ 
-					this.by(poaAsw,pstTokenizer,ppwOut);
-				}
-				else if(next.equals("server"))
-				{
-					poaAsw.setStrategy(model.getStrategy());
-					ip = poaAsw.chooseServer();
-					ppwOut.println(ip);
-				}
-				else if(next.equals("balance") && model.getAdvancedClient() == true)
-				{	
-					this.balance(poaAsw,pstTokenizer,ppwOut);
-				}
-				else if(next.equals("save") && model.getAdvancedClient() == true)
-				{
-					this.save(poaAsw,pstTokenizer,ppwOut);
-				}
-				else
-				{
-					ppwOut.println("getip <by|server|if advanced client enabled then save|balance available>");
-				}
+
+			if (next.equals("by"))
+			{
+				this.by(poaAsw, pstTokenizer, ppwOut);
+			}
+			else if (next.equals("server"))
+			{
+				poaAsw.setStrategy(model.getStrategy());
+				ip = poaAsw.chooseServer();
+				ppwOut.println(ip);
+			}
+			else if (next.equals("balance")
+					&& model.getAdvancedClient() == true)
+			{
+				this.balance(poaAsw, pstTokenizer, ppwOut);
+			}
+			else if (next.equals("save") && model.getAdvancedClient() == true)
+			{
+				this.save(poaAsw, pstTokenizer, ppwOut);
+			}
+			else
+			{
+				ppwOut.println("getip <by|server|if advanced client enabled then save|balance available>");
+			}
 		}
 		else
 		{
 			ppwOut.println("getip <by|server|if advanced client enabled then save|balance available>");
 		}
-		logger.info("Ende Methode ip");
+		logger.info("End method ip");
 	}
-	
+
 	/**
-	 * gibt den Client alle vorhandenen Server Typen zurück 
-	 * oder guckt ob es eines von denen gibt je nach Befehl und schickt eine Antwort zum Client
+	 * This method return all available server types or return if a specific
+	 * type of server available
 	 * 
-	 * @param poaAsw als Auswerten
-	 * @param pstTokenizer als StringTokenizer
-	 * @param ppwOut als PrinterWriter
+	 * @param poaAsw as XMLInterpreter
+	 * @param pstTokenizer as StringTokenizer
+	 * @param ppwOut as PrinterWriter
 	 */
-	private void typ(Auswerten poaAsw, StringTokenizer pstTokenizer, PrintWriter ppwOut)
+	private void typ(XMLInterpreter poaAsw, StringTokenizer pstTokenizer,
+			PrintWriter ppwOut)
 	{
-		logger.info("Anfang Methoden typ");
-		if(pstTokenizer.hasMoreTokens())
+		logger.info("Start method type");
+		if (pstTokenizer.hasMoreTokens())
 		{
 			String typ = pstTokenizer.nextToken();
 			typ = typ.toLowerCase();
-			if(typ.equals("all"))
+			if (typ.equals("all"))
 			{
 				String sAusgabe = "";
 				String[] tmp = poaAsw.getKeys();
-				for(int i = 0; i < tmp.length;i++)
+				for (int i = 0; i < tmp.length; i++)
 				{
 					sAusgabe += tmp[i] + " ";
 				}
@@ -263,42 +271,44 @@ public class ServerThread extends Thread
 		{
 			ppwOut.println("gettyp <all|0|1|2|3|...>");
 		}
-		logger.info("Ende Methode typ");
+		logger.info("End method type");
 	}
-	
+
 	/**
-	 * Diese Methode wählt je nach eingekommer Nachricht eine Methode aus, um den entgegen genommen Befehl zu bearbeiten.
+	 * This method handle the command of the client
 	 * 
-	 * @param poaAsw als Auswerten
-	 * @param pstTokenizer als StringTokenizer
-	 * @param pbWeiter als boolean
-	 * @param ppwOut als PrintWriter
-	 * @return weiter als boolean
-	 * @throws IOException durch schliessen des Clients Sockets
+	 * @param poaAsw as XMLInterpreter
+	 * @param pstTokenizer as StringTokenizer
+	 * @param pbAgain as boolean
+	 * @param ppwOut as PrintWriter
+	 * @return pbAgain as boolean
+	 * @throws IOException as Exception
 	 */
-	private boolean chooseMethod(Auswerten poaAsw, StringTokenizer pstTokenizer, boolean pbWeiter, PrintWriter ppwOut) throws IOException
+	private boolean chooseMethod(XMLInterpreter poaAsw,
+			StringTokenizer pstTokenizer, boolean pbAgain, PrintWriter ppwOut)
+			throws IOException
 	{
-		pbWeiter = true;
-		logger.info("Anfang Methode waehleMethode");
-		if(pstTokenizer.hasMoreTokens())
+		pbAgain = true;
+		logger.info("Starts method chooseMethod");
+		if (pstTokenizer.hasMoreTokens())
 		{
 			String next = pstTokenizer.nextToken();
-			if(next.equals("exit"))
+			if (next.equals("exit"))
 			{
 				ppwOut.println("closed");
 				client.close();
-				pbWeiter = false;
-				return pbWeiter;
+				pbAgain = false;
+				return pbAgain;
 			}
-			else if(next.equals("getip"))
+			else if (next.equals("getip"))
 			{
-				this.ip(poaAsw,pstTokenizer,ppwOut);
+				this.ip(poaAsw, pstTokenizer, ppwOut);
 			}
-			else if(next.equals("gettyp"))
+			else if (next.equals("gettyp"))
 			{
-				this.typ(poaAsw,pstTokenizer,ppwOut);
+				this.typ(poaAsw, pstTokenizer, ppwOut);
 			}
-			else if(next.equals("help"))
+			else if (next.equals("help"))
 			{
 				ppwOut.println("<getip|gettyp>");
 			}
@@ -307,69 +317,72 @@ public class ServerThread extends Thread
 				ppwOut.println("cannot found this command");
 			}
 		}
-		logger.info("Ende Methode waehleMethode");
-		return pbWeiter;
-		
+		logger.info("End of the method chooseMethod");
+		return pbAgain;
+
 	}
-	
+
 	/**
-	 * Nachricht vom Client wird gelesen und weiterverarbeitet um den richtigen Befehl auszuführen
+	 * The thread which handle the client
 	 */
 	public void run()
 	{
-		logger.info("Anfang Methode run()");
+		logger.info("Start method run()");
 
-		try {
-			BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
-			PrintWriter out = new PrintWriter(client.getOutputStream(),true);
-			
-			Auswerten asw = new Auswerten();
-			
+		try
+		{
+			BufferedReader in = new BufferedReader(new InputStreamReader(
+					client.getInputStream()));
+			PrintWriter out = new PrintWriter(client.getOutputStream(), true);
+
+			XMLInterpreter asw = new XMLInterpreter();
+
 			asw.readXMLFileWithXSD(xmlPath, xsdPath);
-			boolean weiter = true;
-			
-			while(weiter)
+			boolean again = true;
+
+			while (again)
 			{
 				String nachricht = in.readLine();
-				
+
 				StringTokenizer tokenizer = new StringTokenizer(nachricht);
 
-				weiter = this.chooseMethod(asw,tokenizer,weiter,out);
+				again = this.chooseMethod(asw, tokenizer, again, out);
 			}
-			
+
 			MyServer.decrementOpenSockets();
-			
-			if(MyServer.getOpenSockets() == 0 && MyServer.getLoop() == false)
+
+			if (MyServer.getOpenSockets() == 0 && MyServer.getLoop() == false)
 			{
-				synchronized (myServer) 
+				synchronized (myServer)
 				{
-					System.out.println("\n\nweckt myServer\n\n");
+					System.out.println("\n\nnotify myServer\n\n");
 					myServer.notify();
 				}
 			}
-			
-		} 
-		catch (IOException | MyServerException e) 
+
+		}
+		catch (IOException | MyServerException e)
 		{
 			e.printStackTrace();
-			try 
+			try
 			{
 				MyServer.decrementOpenSockets();
-				if(MyServer.getOpenSockets() == 0)
+				if (MyServer.getOpenSockets() == 0)
 				{
-					synchronized (myServer) 
+					synchronized (myServer)
 					{
-						logger.debug("weckt MyServer auf");
+						logger.debug("notify MyServer");
 						myServer.notify();
 					}
 				}
-			} catch (MyServerException e1) 
+			}
+			catch (MyServerException e1)
 			{
 				e1.printStackTrace();
 			}
 		}
-		
-		logger.info("Ende Methode run()");
+
+		logger.info("End method run()");
 	}
-	
+
 }

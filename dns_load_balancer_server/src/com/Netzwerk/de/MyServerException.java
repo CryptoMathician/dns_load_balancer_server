@@ -1,31 +1,32 @@
 package com.Netzwerk.de;
 
 /**
- * 
- * Diese Exception Klasse beschreibt eine Exception wenn opensockets weniger als 0 werden
+ * This class describe a exceptopn if the opensockets is under 0
  * 
  * @author Pascal Schäfer
+ * @version 0.0.1
  */
 
 @SuppressWarnings("serial")
-public class MyServerException extends Exception 
+public class MyServerException extends Exception
 {
 
 	/**
-	 * Überladener Konstruktor mit möglichkeit der übergabe einer Nachricht
-	 * @param psMessage als String
+	 * Overloaded constructor
+	 * 
+	 * @param psMessage as String
 	 */
 	public MyServerException(String psMessage)
 	{
 		super(psMessage);
 	}
-	
+
 	/**
-	 * Standard Konstruktor der Exception
+	 * Standard constructor of this class
 	 */
 	public MyServerException()
 	{
-		
+
 	}
-	
+
 }
